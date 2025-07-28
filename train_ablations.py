@@ -1,41 +1,30 @@
 import torch
 from ultralytics import YOLO
 
-def train_pose_model(
-    model_path_or_yaml,
+def train_pose_scratch(
+    model_yaml,
     data_yaml,
     exp_name,
     kpt_shape=[2, 3],
-    pretrained=True,
-    freeze_backbone=False,
-    epochs=100,
+    epochs=120,
     batch=16,
     imgsz=640,
-    patience=15,
-    workers=4,
+    patience=30,
+    workers=5,
     device=None
 ):
-    # Set device
     device = device or ('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"[INFO] Training on device: {device}")
+    print(f"[INFO] Training on {device}, from scratch")
 
-    # Load model (pretrained .pt or custom .yaml)
-    print(f"[INFO] Loading model: {model_path_or_yaml}")
-    model = YOLO(model_path_or_yaml)
-
-    # Set keypoint shape (num_kpts, dimensions)
-    print(f"[INFO] Setting keypoint shape to: {kpt_shape}")
+    # Load from YAML, no pretrained weights
+    model = YOLO(model_yaml)
     model.model.kpt_shape = kpt_shape
 
-    # Optionally freeze backbone
-    if freeze_backbone:
-        print("[INFO] Freezing all layers except pose head...")
-        for name, param in model.model.named_parameters():
-            if 'pose' not in name:
-                param.requires_grad = False
+    # Ensure all layers trainable
+    for name, param in model.model.named_parameters():
+        param.requires_grad = True
 
-    # Start training
-    print("[INFO] Starting training...")
+    print(f"[INFO] Experiment: {exp_name}")
     model.train(
         data=data_yaml,
         imgsz=imgsz,
@@ -46,25 +35,29 @@ def train_pose_model(
         device=device,
         project='runs/pose',
         name=exp_name,
-        visualize=True,
-        task='pose'
+        optimizer='SGD',
+        lr0=0.01,
+        momentum=0.937,
+        weight_decay=0.0005,
+        close_mosaic=10,
+        warmup_epochs=3,
+        lrf=0.01,
+        default_aug=True,
+        cos_lr=True,  
+        pretrained=False,
+        save=True
     )
 
-
 if __name__ == "__main__":
-    # === EXPERIMENT CONFIGURATION === #
     config = {
-        'model_path_or_yaml': 'yolov8s-pose.pt',  # Or your custom YAML like 'yolo11s_pose.yaml'
-        'data_yaml': r'C:\Users\dalab\Desktop\azimjaan21\RESEARCH\ablation_yolov8m_seg\data_wrist\data.yaml',
-        'exp_name': 'abl0_baseline',
-        'kpt_shape': [2, 3],  # Wrist-only (left & right, x/y/conf)
-        'pretrained': True,
-        'freeze_backbone': False,  # True to train head only
-        'epochs': 100,
+        'model_yaml': 'yolov8s-pose.yaml',
+        'data_yaml': r'path/to/wrist_data.yaml',
+        'exp_name': 'baseline_wrist_scratch',
+        'kpt_shape': [2, 3],
+        'epochs': 120,
         'batch': 16,
         'imgsz': 640,
-        'patience': 15,
-        'workers': 4
+        'patience': 30,
+        'workers': 5,
     }
-
-    train_pose_model(**config)
+    train_pose_scratch(**config)
