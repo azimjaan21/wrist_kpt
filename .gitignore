@@ -1,0 +1,5 @@
+*.pt
+*.pth
+*.onnx
+*.engine
+*.mp4
