@@ -42,7 +42,6 @@ def train_pose_scratch(
         close_mosaic=10,
         warmup_epochs=3,
         lrf=0.01,
-        default_aug=True,
         cos_lr=True,  
         pretrained=False,
         save=True
