@@ -3,4 +3,7 @@
 *.onnx
 *.engine
 *.mp4
+
+
 coco2017/ 
+coco_wrist/
