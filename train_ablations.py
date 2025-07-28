@@ -54,7 +54,7 @@ if __name__ == "__main__":
         'data_yaml': r'path/to/wrist_data.yaml',
         'exp_name': 'baseline_wrist_scratch',
         'kpt_shape': [2, 3],
-        'epochs': 120,
+        'epochs': 300,
         'batch': 16,
         'imgsz': 640,
         'patience': 30,
