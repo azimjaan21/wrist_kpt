@@ -1,0 +1,27 @@
+nc: 1
+kpt_shape: [2, 3]
+scales:
+  s: [0.33, 0.25, 512]   # Lower width and depth, smaller max_channels
+
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [32, 3, 2]]         # 0-P1/2 (was 64)
+  - [-1, 1, Conv, [64, 3, 2]]         # 1-P2/4 (was 128)
+  - [-1, 1, C3k2, [96, False, 0.1]]   # 2 (was 256, now much less)
+  - [-1, 1, Conv, [96, 3, 2]]         # 3-P3/8 (was 256)
+  - [-1, 1, C3k2, [192, False, 0.1]]  # 4 (was 512)
+  - [-1, 1, Conv, [192, 3, 2]]        # 5-P4/16 (was 512)
+  - [-1, 1, C3k2, [192, True]]        # 6 (was 512)
+
+# No P5, SPPF, or C2PSA
+
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]      # 7: upsample P4/16 to P3
+  - [[-1, 4], 1, Concat, [1]]                       # 8: fuse upsampled P4 with P3 (layer 4)
+  - [-1, 1, C3k2, [96, False]]                      # 9: lighter feature fusion
+
+  - [-1, 1, Conv, [96, 3, 2]]                       # 10: downsample to P4
+  - [[-1, 6], 1, Concat, [1]]                       # 11: fuse with P4 backbone (layer 6)
+  - [-1, 1, C3k2, [192, False]]                     # 12: lighter fusion at P4
+
+  - [[9, 12], 1, Pose, [nc, kpt_shape]]             # 13: Detect on P3/8, P4/16 only
