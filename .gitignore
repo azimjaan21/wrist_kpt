@@ -9,3 +9,5 @@ coco2017/
 coco_wrist/
 
 .vscode/
+evaluation_results/
+visual_wrist_valids/
