@@ -54,7 +54,7 @@ if __name__ == "__main__":
         'exp_name': 'ab1',
         'kpt_shape': [2, 3],
         'epochs': 70,
-        'batch': 32,
+        'batch': 16,
         'imgsz': 640,
         'patience': 30,
         'workers': 5,
