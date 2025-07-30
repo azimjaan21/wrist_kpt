@@ -39,11 +39,11 @@ def visualize_wrist_keypoints(image_path, label_path):
     cv2.destroyAllWindows()
 
 # Example usage:
-image_folder = Path("coco_wrist/train2017")
-label_folder = Path("coco_wrist/labels/train2017")
+image_folder = Path(r"C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\coco_wrist\images\train2017")
+label_folder = Path(r"C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\coco_wrist\labels\train2017")
 
 # Pick one image and its label
-image_file = image_folder / "000000000036.jpg"  
-label_file = label_folder / "000000000036.txt"
+image_file = image_folder / "000000549532.jpg"  
+label_file = label_folder / "000000549532.txt"
 
 visualize_wrist_keypoints(image_file, label_file)

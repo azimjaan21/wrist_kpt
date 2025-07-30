@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 def main():
-    model = YOLO(r"C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\runs\pose\base_yolo11s_pose\weights\best.pt", 
+    model = YOLO(r"C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\runs\pose\ab5\weights\best.pt", 
                  task="segment")  
 
     # Run validation (val dataset and set batch=1 for true FPS)
@@ -10,7 +10,7 @@ def main():
                         batch=1,
                         visualize=True,
                         project='evaluation_results',
-                        name='base_yolo11s_pose')  
+                        name='ab5')  
     # Set batch=1 for single-image FPS
 
     # speed metrics
