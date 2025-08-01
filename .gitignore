@@ -6,6 +6,7 @@
 
 
 coco2017/ 
+coco_17kpts/
 coco_wrist/
 
 .vscode/
