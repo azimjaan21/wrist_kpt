@@ -49,10 +49,10 @@ def train_pose_scratch(
 
 if __name__ == "__main__":
     config = {
-        'model_yaml': r'C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\ultralytics\ultralytics\cfg\models\11\ab3.yaml',
-        'data_yaml': 'coco_wrist/wrist_data.yaml',
-        'exp_name': '#',
-        'kpt_shape': [2, 3],
+        'model_yaml': r'C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\ultralytics\ultralytics\cfg\models\11\yolo11-pose.yaml',
+        'data_yaml': 'coco_17kpts/17kpt_data.yaml',
+        'exp_name': '17kpt_base',
+        'kpt_shape': [17, 3],
         'epochs': 70,
         'batch': 16,
         'imgsz': 640,
