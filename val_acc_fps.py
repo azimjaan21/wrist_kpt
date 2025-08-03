@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 def main():
-    model = YOLO(r"C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\runs\pose\base_pose\weights\best.pt", 
+    model = YOLO(r"C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\runs\pose\17kpt_base\weights\best.pt", 
                  task="segment")  
 
     # Run validation (val dataset and set batch=1 for true FPS)
