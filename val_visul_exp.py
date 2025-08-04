@@ -11,6 +11,6 @@ results = model.predict(
     save=True,              
     show=False,            
     project='visual_wrist_valids/',
-    name='base_yolo11s_pose',   
+    name='trans_laern_base_pose',   
     exist_ok=True          
 )
