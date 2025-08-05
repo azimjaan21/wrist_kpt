@@ -1,16 +1,16 @@
 from ultralytics import YOLO
 
 def main():
-    model = YOLO(r"trans_learn_base_pose.engine", 
+    model = YOLO("C:/Users\dalab\Desktop/azimjaan21/RESEARCH/wrist_kpt/runs/pose/#trans_[ab2]/weights/best.pt", 
                  task="pose")  
 
     # Run validation (val dataset and set batch=1 for true FPS)
-    metrics = model.val(data= "coco_wrist/wrist_data.yaml",
+    metrics = model.val(data= r"C:\Users\dalab\Desktop\azimjaan21\RESEARCH\ablation_yolov8m_seg\data_wrist\data.yaml",
                         imgsz=640, 
                         batch=1,
                         visualize=True,
                         project='evaluation_results',
-                        name='###trans_learn_base')  
+                        name='TransferL#ab2')  
     # Set batch=1 for single-image FPS
 
     # speed metrics
