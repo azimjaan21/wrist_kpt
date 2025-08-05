@@ -48,9 +48,9 @@ def train_pose_from_pt(
 
 if __name__ == "__main__":
     config = {
-        'model_pt': r'C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\runs\pose\ab1\weights\best.pt',
+        'model_pt': r'C:\Users\dalab\Desktop\azimjaan21\RESEARCH\wrist_kpt\runs\pose\ab4\weights\best.pt',
         'data_yaml': r'C:\Users\dalab\Desktop\azimjaan21\RESEARCH\ablation_yolov8m_seg\data_wrist\data.yaml',
-        'exp_name': '#trans_[ab1]',
+        'exp_name': '#trans_[ab4]',
         'kpt_shape': [2, 3],
         'epochs': 50,
         'batch': 16,
